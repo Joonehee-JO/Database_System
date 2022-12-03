@@ -13,7 +13,7 @@ public class CouselistDAO {
 			String SQL = "select * from courselist";
 			PreparedStatement pstmt = conn.prepareStatement(SQL);	
 			rs = pstmt.executeQuery();
-			if(rs.next())System.out.println("과목코드"+" / "+"과목명"+" / "+"학점 수"+" / "+"전공구분");
+			System.out.println("과목코드"+" / "+"과목명"+" / "+"학점 수"+" / "+"전공구분");
 			while(rs.next()) {
 				System.out.print(rs.getString(1)+" "+rs.getString(2)+" "+rs.getInt(3)+
 						"학점 ");
