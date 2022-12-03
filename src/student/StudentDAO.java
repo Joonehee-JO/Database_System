@@ -79,4 +79,18 @@ public class StudentDAO {
 			e.printStackTrace();
 		}
 	}
+	
+	//학생 삭제 메소드
+	public void deleteStudent(String sid) {
+		try {
+			Connection conn = DatabaseUtil.getConnection();	
+			String SQL = "delete from student where sid = ?";
+			PreparedStatement pstmt = conn.prepareStatement(SQL);
+			pstmt.setString(1, sid);
+			pstmt.executeUpdate();
+			conn.close();
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+	}
 }
