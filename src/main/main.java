@@ -6,6 +6,7 @@ import java.util.Scanner;
 import util.DatabaseUtil;
 import courselist.*;
 import lead.*;
+import open.openDAO;
 import professor.ProfessorDAO;
 import student.*;
 
@@ -20,6 +21,7 @@ public class main {
 		StudentDAO SDAO = new StudentDAO();
 		LeadDAO LDAO = new LeadDAO();
 		ProfessorDAO PDAO = new ProfessorDAO();
+		openDAO ODAO = new openDAO();
 		
 		while(true) {
 			System.out.println("원하시는 메뉴얼을 선택하세요 : \n");		//메뉴얼 노출
@@ -31,12 +33,26 @@ public class main {
 			if(input == 1) {	
 				do {
 					System.out.println("교과목 개설 메뉴얼입니다\n");		
-					System.out.println("1. 교과목 개설하기\t2. 현재 개설된 교과목 확인하기\t3. 전체 교과목 리스트 출력\t4. 교과목검색\t0. 뒤로가기");
+					System.out.println("1. 전체 교과목 리스트 출력\t2. 빈 강의실 출력\t3. 교수님들 빈 시간표 출력\t4. 교과목 개설하기\t5. 현재 개설된 교과목 확인하기\t0. 뒤로가기");
 					input = scanner.nextInt();	
-					if(input == 3) {
+					if (input == 1) {
 						CDAO.selectAllcourselist();
 					}
+					else if(input == 2) {
+						ODAO.checkEmptyLectureroom();
+					}
+					else if(input == 3) {
+						ODAO.checkProfessorTimetable();
+					}
 					else if(input == 4) {
+						System.out.println("개설년도를 입력해주세여.\n");	//개설년도 가져오기	
+						String input_year = scanner.next();
+						System.out.println("개설할 교과목 이름을 입력해주세요.\n");	//교과목번호 가져오기	
+						String input_cid = scanner.next();
+						System.out.println("해당 교과목의 담당교수님을 입력해주세요.\n");	//교수님번호 가져오기
+						String input_pid = scanner.next();
+					}
+					else if(input == 5) {
 						System.out.println("찾으시는 과목 이름을 입력해주세요");	
 						inputstr = scanner.next();
 						CDAO.searchCourselist(inputstr);
