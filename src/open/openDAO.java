@@ -44,7 +44,7 @@ public class openDAO {
 	public void insertUsedlectureroom(String oyear, String cid, String lid, String did) {
 		try {
 			Connection conn = DatabaseUtil.getConnection();	
-			String SQL = "insert into opensubject values (?,?,?,?,?)";
+			String SQL = "insert into usedlectureroom values (?,?,?,?,?)";
 			PreparedStatement pstmt = conn.prepareStatement(SQL);
 			pstmt.setInt(1, getFinalUid());
 			pstmt.setString(2, oyear);
@@ -58,8 +58,38 @@ public class openDAO {
 		}
 	}
 	
+	//교수님들 시간표 출력
 	public void checkProfessorTimetable() {
-		
+		try {
+			Connection conn = DatabaseUtil.getConnection();	
+			String SQL = "select pname, did from professor, usedlectureroom where pid IN (select pid from opensubject, usedlectureroom where usedlectureroom.cid = opensubject.cid AND usedlectureroom.oyear = opensubject.oyear)";
+			PreparedStatement pstmt = conn.prepareStatement(SQL);	
+			rs = pstmt.executeQuery();
+			System.out.println("교수님"+" / "+"강의시간");
+			while(rs.next()) {
+				System.out.println(rs.getString(1)+" / "+rs.getString(2));
+			}
+			conn.close();
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	//현재 개설된 교과목 전부 출력
+	public void printAllOpenSubject() {
+		try {
+			Connection conn = DatabaseUtil.getConnection();	
+			String SQL = "select distinct cname,lid,pname from courselist,lectureroom,professor,opensubject where (courselist.cid, lid) IN (select distinct cid,lid from usedlectureroom) AND professor.pid=opensubject.pid";
+			PreparedStatement pstmt = conn.prepareStatement(SQL);	
+			rs = pstmt.executeQuery();
+			System.out.println("과목명"+" / "+"강의실" + " / " + "담당교수님");
+			while(rs.next()) {
+				System.out.println(rs.getString(1)+" / "+rs.getString(2) + "호 / " + rs.getString(3));
+			}
+			conn.close();
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
 	}
 	
 	//마지막 uid번호 넘겨주기

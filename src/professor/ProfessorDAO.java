@@ -33,8 +33,8 @@ public class ProfessorDAO {
 			rs = pstmt.executeQuery();
 			System.out.println("교수번호"+" / "+"이름"+" / "+"나이"+" / "+"전화번호" + " / " + "연구실");
 			while(rs.next()) {
-				System.out.println(rs.getString(1)+"    "+rs.getString(2)+" "+rs.getInt(3)+
-						"  세 " + rs.getString(4)  +"   "+ rs.getString(5) + "호");
+				System.out.println(rs.getString(1)+"      "+rs.getString(2)+"  "+rs.getInt(3)+
+						"세 " + rs.getString(4)  +"   "+ rs.getString(5) + "호");
 			}
 			conn.close();
 		} catch(Exception e) {
@@ -69,8 +69,8 @@ public class ProfessorDAO {
 			rs = pstmt.executeQuery();
 			System.out.println("교수번호"+" / "+"이름"+" / "+"나이"+" / "+"전화번호" + " / " + "연구실");
 			while(rs.next()) {
-				System.out.println(rs.getString(1)+"    "+rs.getString(2)+" "+rs.getInt(3)+
-						"  세 " + rs.getString(4)  +"   "+ rs.getString(5) + "호");
+				System.out.println(rs.getString(1)+"      "+rs.getString(2)+"  "+rs.getInt(3)+
+						"세 " + rs.getString(4)  +"   "+ rs.getString(5) + "호");
 			}
 			conn.close();
 		}catch(Exception e) {

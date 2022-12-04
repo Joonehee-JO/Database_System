@@ -25,7 +25,7 @@ public class main {
 		
 		while(true) {
 			System.out.println("원하시는 메뉴얼을 선택하세요 : \n");		//메뉴얼 노출
-			System.out.println("1. 교과목관리\t2. 학생관리\t3. 교수관리\t4. 전체보기\t0. 종료");
+			System.out.println("1. 교과목관리\t2. 학생관리\t3. 교수관리\t0. 종료");
 
 			input = scanner.nextInt();	//사용자 메뉴얼번호 선택
 			
@@ -33,7 +33,7 @@ public class main {
 			if(input == 1) {	
 				do {
 					System.out.println("교과목 개설 메뉴얼입니다\n");		
-					System.out.println("1. 전체 교과목 리스트 출력\t2. 빈 강의실 출력\t3. 교수님들 빈 시간표 출력\t4. 교과목 개설하기\t5. 현재 개설된 교과목 확인하기\t0. 뒤로가기");
+					System.out.println("1. 전체 교과목 리스트 출력\t2. 빈 강의실 출력\t3. 교수님들 시간표 출력\t4. 교과목 개설하기\t5. 현재 개설된 교과목 확인하기\t6. 교과목 검색하기\t0. 뒤로가기");
 					input = scanner.nextInt();	
 					if (input == 1) {
 						CDAO.selectAllcourselist();
@@ -47,12 +47,25 @@ public class main {
 					else if(input == 4) {
 						System.out.println("개설년도를 입력해주세여.\n");	//개설년도 가져오기	
 						String input_year = scanner.next();
-						System.out.println("개설할 교과목 이름을 입력해주세요.\n");	//교과목번호 가져오기	
+						System.out.println("개설할 교과목 번호를 입력해주세요.\n");	//교과목번호 가져오기	
 						String input_cid = scanner.next();
-						System.out.println("해당 교과목의 담당교수님을 입력해주세요.\n");	//교수님번호 가져오기
+						System.out.println("해당 교과목의 담당교수번호를 입력해주세요.\n");	//교수님번호 가져오기
 						String input_pid = scanner.next();
+						System.out.println("해당 교과목의 강의실을 입력해주세요.\n");	//교수님번호 가져오기
+						String input_lid = scanner.next();
+						System.out.println("첫날 시작 강의시간을 입력해주세요.\n");	
+						String input_time1 = scanner.next();
+						System.out.println("둘째날 강의시간을 입력해주세요.\n");	
+						String input_time2 = scanner.next();
+						
+						ODAO.insertOpensubject(input_year, input_cid, input_pid);
+						ODAO.insertUsedlectureroom(input_year, input_cid, input_lid, input_time1);
+						ODAO.insertUsedlectureroom(input_year, input_cid, input_lid, input_time2);
 					}
-					else if(input == 5) {
+					else if (input == 5) {
+						ODAO.printAllOpenSubject();
+					}
+					else if(input == 6) {
 						System.out.println("찾으시는 과목 이름을 입력해주세요");	
 						inputstr = scanner.next();
 						CDAO.searchCourselist(inputstr);
@@ -136,7 +149,7 @@ public class main {
 			else if(input == 3) {
 				do {
 					System.out.println("교수관리 메뉴얼입니다\n");		
-					System.out.println("1. 모든 교수 정보 출력\t2. 교수 정보 입력\t3. 교수 검색\t4. 교수 삭제");
+					System.out.println("1. 모든 교수 정보 출력\t2. 교수 정보 입력\t3. 교수 검색\t4. 교수 삭제\t0. 뒤로가기");
 					input = scanner.nextInt();	
 					if(input == 1) {
 						PDAO.selectAllProfessor();
